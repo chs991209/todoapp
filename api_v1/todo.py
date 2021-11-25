@@ -11,3 +11,10 @@ def todos():
 
     data = request.get_json()
     return jsonify(data)
+
+
+@api.route('/test', methods=['POST'])
+def test():
+    res = request.form['text']
+    print(res)
+    return jsonify(res)
