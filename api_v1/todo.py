@@ -1,11 +1,16 @@
+import requests
 from flask import jsonify
 from flask import request
+
+from . import api
 
 
 @api.route('/todos', methods=['GET', 'POST'])
 def todos():
     if request.method == 'POST':
-        pass
+        res = requests.post('https://hooks.slack.com/services/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', json={
+            'text': 'Hello world'
+        }, headers={'Content-Type': 'application/json'})
     elif request.method == 'GET':
         pass
 
