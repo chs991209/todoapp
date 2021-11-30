@@ -1,12 +1,34 @@
 import os
 
 from flask import Flask
+from flask import render_template, redirect
 
 from api_v1 import api as api_v1
 from models import db
 
 app = Flask(__name__)
 app.register_blueprint(api_v1, url_prefix='/api/v1')
+
+
+@app.route('/', methods=['GET'])
+def home():
+    return render_template('home.html')
+
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    return render_template('login.html')
+
+
+@app.route('/logout', methods=['GET'])
+def logout():
+    return redirect('/')
+
+
+@app.route('/register', methods=['GET', 'POST'])
+def regist():
+    return render_template('register.html')
+
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 dbfile = os.path.join(basedir, 'db.sqlite')
