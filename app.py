@@ -4,6 +4,8 @@ from flask import Flask
 from flask import render_template, redirect
 
 from api_v1 import api as api_v1
+from forms import RegisterForm
+from models import Fcuser
 from models import db
 
 app = Flask(__name__)
@@ -27,7 +29,18 @@ def logout():
 
 @app.route('/register', methods=['GET', 'POST'])
 def regist():
-    return render_template('register.html')
+    form = RegisterForm()
+    if form.validate_on_submit():
+        fcuser = Fcuser()
+        fcuser.userid = form.data.get('userid')
+        fcuser.password = form.data.get('password')
+
+        db.session.add(fcuser)
+        db.session.commit()
+
+        return redirect('/login')
+
+    return render_template('register.html', form=form)
 
 
 basedir = os.path.abspath(os.path.dirname(__file__))
