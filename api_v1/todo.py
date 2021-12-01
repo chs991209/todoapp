@@ -45,7 +45,7 @@ def slack_todos():
         db.session.commit()
 
         ret_msg = 'Todo Generated!'
-        send_slack('[%s] "%s" 할 일을 만들었습니다' % (str(datetime.datetime.now()), todo_name))
+        send_slack('[%s] "%s" 할 일을 만들었습니다' % (str(datetime.datetime.now()), str(todo_name))
 
     elif cmd == 'list':
         todos = Todo.query.all()
